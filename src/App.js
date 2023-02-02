@@ -1,8 +1,17 @@
+<<<<<<< HEAD
 import {useEffect, useState, useRef } from 'react'
 import Gallery from './components/Gallery'
 import SearchBar from './components/Searchbar'
 import { DataContext } from './context/DataContext'
 import { SearchContext } from './context/SearchContext' 
+=======
+import {Fragment, useEffect, useState } from 'react'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import Gallery from './components/Gallery'
+import SearchBar from './components/Searchbar'
+import AlbumView from './components/AlbumView'
+import ArtistView from './components/ArtistView'
+>>>>>>> with_router2
 
 function App() {
 	let [message, setMessage] = useState('Search for Music!')
@@ -29,6 +38,7 @@ function App() {
 	}	
 	
 	return (
+<<<<<<< HEAD
 		<div className='App'>
 			<SearchContext.Provider value ={{
 				term: searchInput,
@@ -36,10 +46,22 @@ function App() {
 			}}>
 				<SearchBar />
 			</SearchContext.Provider>
+=======
+		<div>
+>>>>>>> with_router2
 			{message}
-			<DataContext.Provider value={data}>
-				<Gallery />
-			</DataContext.Provider>
+                <Router>
+                    <Routes>
+                        <Route path='/' element= {
+                            <Fragment>
+                                <SearchBar handleSearch = {handleSearch}/>
+                                <Gallery data={data} />
+                            </Fragment>
+                        } />
+                        <Route path='/album/:id' element={<AlbumView />} />
+                        <Route path='/artist/:id' element={<ArtistView />} />
+                    </Routes>
+                </Router>
 		</div>
   	);
 }
